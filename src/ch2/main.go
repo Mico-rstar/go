@@ -26,4 +26,10 @@ func main() {
 	fmt.Println(r)
 	fmt.Println(string(r))
 
+
+	var ss string
+	fmt.Println(ss)
+
+	// var p *int
+	// *p = 1
 }
