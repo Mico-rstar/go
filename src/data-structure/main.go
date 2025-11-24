@@ -86,6 +86,7 @@ func main() {
 
 
 	test()
+	testRefCopy()
 }
 
 func nonempty(strs []string) []string {

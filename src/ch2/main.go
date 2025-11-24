@@ -32,4 +32,7 @@ func main() {
 
 	// var p *int
 	// *p = 1
+
+	p := new(int)
+	fmt.Printf("%T\n", p)
 }
