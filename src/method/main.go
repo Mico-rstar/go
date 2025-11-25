@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"notes/src/method/counter"
+	"notes/src/method/point"
+	"image/color"
 )
 
 type Animal struct {
@@ -90,5 +93,26 @@ func main() {
 	
 	// jump := (*Rabbit).sleep
 
+	NilTest()
 
+	cnt := counter.New(1)
+	fmt.Println(cnt.N())
+
+	cp := point.ColoredPoint{
+		Point: point.Point{1, 2},
+		Color: color.RGBA{},
+	}
+
+	cp.ScaleBy(2)
+	fmt.Println(cp)
+
+	qp := point.ColoredPoint{
+		Point: point.Point{3, 4},
+		Color: color.RGBA{},
+	}
+
+	// cp.Distance(qp)
+	// 显式调用子类型方法
+	// cp.Point.Distance(qp.Point)
+	cp.Distance(qp)
 }
