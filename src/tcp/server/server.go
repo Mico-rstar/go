@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"net"
 	"strconv"
@@ -9,7 +10,18 @@ import (
 
 // 统计字符数
 func factory(str string) string {
-	return strconv.Itoa(len(str))		
+	return strconv.Itoa(len(str))
+}
+
+func ReadAll(conn *net.Conn) []byte {
+	byteData := make([]byte, 0, 1024)
+	for {
+		_, err := (*conn).Read(byteData)
+		if err == io.EOF {
+			break
+		}
+	}
+	return byteData
 }
 
 func main() {
@@ -17,7 +29,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	listener, err := net.ListenTCP("tcp", addr) 
+	listener, err := net.ListenTCP("tcp", addr)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -27,8 +39,10 @@ func main() {
 			log.Fatal(err)
 		}
 		fmt.Println(conn.RemoteAddr().String())
-		recv := make([]byte, 0, 1024)
+		// recv := ReadAll(&conn)
+		recv := make([]byte, 1024)
 		conn.Read(recv)
+		fmt.Println("recv from client: ", string(recv))
 		sendData := []byte(factory(string(recv)))
 		conn.Write(sendData)
 		conn.Close()
